@@ -1582,7 +1582,7 @@
                 if (isVisible) {
                     // Calculate z-index based on scroll position to create stacking effect
                     const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / window.innerHeight));
-                    const zIndex = 100 - index + Math.floor(scrollProgress * 10);
+                    const zIndex = 100 + index + Math.floor(scrollProgress * 10);
                     card.style.zIndex = zIndex;
                     
                     // Add subtle transform for depth
