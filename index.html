@@ -327,152 +327,138 @@
                 transform: translateY(-5px);
             }
         }
+        
+        /* Profile Card Styles - Interactive 3D Card */
+        .profile-card-wrapper {
+            --pointer-x: 50%;
+            --pointer-y: 50%;
+            --pointer-from-center: 0;
+            --rotate-x: 0deg;
+            --rotate-y: 0deg;
+            --background-x: 50%;
+            --background-y: 50%;
+            --card-opacity: 0.6;
+            
+            perspective: 1500px;
+            position: relative;
+            width: 320px;
+            height: 450px;
+        }
 
-        /* Profile Card Styles */
         .profile-card {
-            background: rgba(30, 58, 138, 0.3);
-            border: 2px solid var(--light-blue);
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 58, 138, 0.15);
+            border: 2px solid rgba(59, 130, 246, 0.3);
             border-radius: 24px;
             padding: 2rem;
-            width: 280px;
-            backdrop-filter: blur(10px);
-            box-shadow: var(--neon-glow);
-            transition: all 0.3s ease;
-            animation: float 4s ease-in-out infinite;
-            animation-delay: 0.5s;
+            backdrop-filter: blur(20px);
+            transform-style: preserve-3d;
+            transform: rotateY(var(--rotate-x)) rotateX(var(--rotate-y));
+            transition: transform 0.1s ease-out, border 0.3s ease;
+            will-change: transform;
+            overflow: hidden;
         }
 
-        .profile-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.6);
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            background: radial-gradient(
+                farthest-side circle at var(--pointer-x) var(--pointer-y),
+                hsla(210, 100%, 70%, var(--card-opacity)) 4%,
+                hsla(210, 50%, 60%, calc(var(--card-opacity) * 0.75)) 10%,
+                hsla(210, 25%, 50%, calc(var(--card-opacity) * 0.5)) 50%,
+                hsla(210, 0%, 40%, 0) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
         }
 
-        .profile-card-header {
+        .profile-card.active::before {
+            opacity: 1;
+        }
+
+        .profile-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            background: radial-gradient(
+                circle at var(--pointer-x) var(--pointer-y),
+                rgba(59, 130, 246, 0.4) 0%,
+                transparent 60%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .profile-card.active::after {
+            opacity: 1;
+        }
+
+        .profile-card.active {
+            border-color: var(--accent-blue);
+        }
+
+        .profile-card-content {
+            position: relative;
+            z-index: 2;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 1.5rem;
+            gap: 1.5rem;
+            height: 100%;
         }
 
         .profile-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 4px solid var(--accent-blue);
+            width: 150px;
+            height: 150px;
+            border-radius: 20px;
+            border: 3px solid rgba(59, 130, 246, 0.5);
             object-fit: cover;
-            margin-bottom: 1rem;
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-card.active .profile-avatar {
+            transform: translateZ(50px);
+        }
+
+        .profile-info {
+            text-align: center;
+            width: 100%;
         }
 
         .profile-name {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: var(--accent-blue);
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.5rem;
             font-family: 'Pixelify Sans', sans-serif;
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
         }
 
         .profile-role {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: var(--text-light);
-            opacity: 0.8;
+            opacity: 0.9;
             font-family: 'Pixelify Sans', sans-serif;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
+            margin-bottom: 0.3rem;
         }
 
-        .profile-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding: 1rem 0;
-            border-top: 1px solid rgba(59, 130, 246, 0.3);
-            border-bottom: 1px solid rgba(59, 130, 246, 0.3);
-        }
-
-        .profile-stat {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        .profile-stat-number {
-            font-size: 1.3rem;
-            font-weight: 700;
+        .profile-handle {
+            font-size: 0.85rem;
             color: var(--accent-blue);
-            font-family: 'Pixelify Sans', sans-serif;
-        }
-
-        .profile-stat-label {
-            font-size: 0.7rem;
-            color: var(--text-light);
             opacity: 0.7;
             font-family: 'Pixelify Sans', sans-serif;
-            font-size: 0.5rem;
         }
-
-        .profile-social {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
-
-        .profile-social-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(59, 130, 246, 0.2);
-            border: 1px solid var(--light-blue);
-            border-radius: 50%;
-            color: var(--accent-blue);
-            text-decoration: none;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .profile-social-link:hover {
-            background: var(--light-blue);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: var(--neon-glow);
-        }
-
-        .about-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--text-light);
-        }
-
-        .keyword-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .keyword-btn {
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid var(--light-blue);
-            border-radius: 20px;
-            padding: 0.5rem 1rem;
-            color: var(--accent-blue);
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: default;
-            user-select: none;
-            transition: all 0.3s ease;
-            font-family: 'Pixelify Sans', sans-serif;
-            font-size: 0.6rem;
-        }
-
-        .keyword-btn:hover {
-            background: rgba(59, 130, 246, 0.2);
-            box-shadow: var(--neon-glow);
-        }
-
+        
         /* Skills Section */
         .skills-grid {
             display: grid;
@@ -1035,9 +1021,24 @@
                 width: 250px;
                 height: 250px;
             }
-            
-            .profile-card {
+
+            .profile-card-wrapper {
+                width: 280px;
+                height: 400px;
                 margin: 0 auto;
+            }
+
+            .profile-card {
+                padding: 1.5rem;
+            }
+
+            .profile-avatar {
+                width: 120px;
+                height: 120px;
+            }
+
+            .profile-name {
+                font-size: 1.3rem;
             }
             
             .nav-links {
@@ -1206,43 +1207,47 @@
                     <div class="about-image">
                         <img src="character_gigi.png" alt="Gigi Giorbelidze Character">
                     </div>
-                    
-                    <!-- Profile Card -->
-                    <div class="profile-card">
-                        <div class="profile-card-header">
-                            <img src="gigi_picture.png" alt="Gigi Giorbelidze" class="profile-avatar">
-                            <h3 class="profile-name">Gigi Giorbelidze</h3>
-                            <p class="profile-role">Product Designer</p>
-                        </div>
-                        
-                        <div class="profile-stats">
-                            <div class="profile-stat">
-                                <div class="profile-stat-number">5+</div>
-                                <div class="profile-stat-label">Projects</div>
+
+                    <!-- Profile Card with 3D Tilt Effect -->
+                    <div class="profile-card-wrapper" id="profileCardWrapper">
+                        <section class="profile-card" id="profileCard">
+                            <div class="profile-card-content">
+                                <img src="gigi_picture.png" alt="Gigi Giorbelidze" class="profile-avatar">
+                                <div class="profile-info">
+                                    <h3 class="profile-name">Gigi Giorbelidze</h3>
+                                    <p class="profile-role">Product Designer</p>
+                                    <p class="profile-handle">@ggiorbelidze</p>
+                                </div>
+                                
+                                <div class="profile-stats">
+                                    <div class="profile-stat">
+                                        <div class="profile-stat-number">5+</div>
+                                        <div class="profile-stat-label">Projects</div>
+                                    </div>
+                                    <div class="profile-stat">
+                                        <div class="profile-stat-number">3+</div>
+                                        <div class="profile-stat-label">Years</div>
+                                    </div>
+                                    <div class="profile-stat">
+                                        <div class="profile-stat-number">4+</div>
+                                        <div class="profile-stat-label">Certs</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="profile-social">
+                                    <a href="https://www.linkedin.com/in/gigigiorbelidze/" class="profile-social-link" target="_blank" title="LinkedIn">
+                                        <i class="fab fa-linkedin"></i>
+                                    </a>
+                                    <a href="https://www.behance.net/Ggiorbelidze" class="profile-social-link" target="_blank" title="Behance">
+                                        <i class="fab fa-behance"></i>
+                                    </a>
+                                    <a href="mailto:gigigiorbelidzeuxui@gmail.com" class="profile-social-link" title="Email">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="profile-stat">
-                                <div class="profile-stat-number">3+</div>
-                                <div class="profile-stat-label">Years</div>
-                            </div>
-                            <div class="profile-stat">
-                                <div class="profile-stat-number">4+</div>
-                                <div class="profile-stat-label">Certs</div>
-                            </div>
-                        </div>
-                        
-                        <div class="profile-social">
-                            <a href="https://www.linkedin.com/in/gigigiorbelidze/" class="profile-social-link" target="_blank" title="LinkedIn">
-                                <i class="fab fa-linkedin"></i>
-                            </a>
-                            <a href="https://www.behance.net/Ggiorbelidze" class="profile-social-link" target="_blank" title="Behance">
-                                <i class="fab fa-behance"></i>
-                            </a>
-                            <a href="mailto:gigigiorbelidzeuxui@gmail.com" class="profile-social-link" title="Email">
-                                <i class="fas fa-envelope"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                        </section>
+                    </div> 
                 <div class="about-text">
                    <p>Hello! I'm <strong>Gigi Giorbelidze</strong>, a passionate <strong>Product Designer</strong> and <strong>Game Artist</strong> with a love for <span class="shiny-text"><strong>pixel-perfect designs</strong></span> and <span class="shiny-text"><strong>user-centered solutions</strong></span>.</p>
                     
@@ -1820,34 +1825,77 @@
             }, 1000);
         });
 
-        // Enhanced project card stacking - slide in front
-const projectCards = document.querySelectorAll('.project-card');
+        // 3D Tilt Profile Card Effect
+        const profileCardWrapper = document.getElementById('profileCardWrapper');
+        const profileCard = document.getElementById('profileCard');
 
-function updateProjectCards() {
-    projectCards.forEach((card, index) => {
-        // Give each card a base z-index that increases with index
-        const baseZIndex = 100 + (index * 10);
-        card.style.zIndex = baseZIndex;
+        if (profileCard && profileCardWrapper) {
+            let rafId = null;
 
-        const rect = card.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-        
-        if (isVisible) {
-            // Add subtle transform for depth
-            const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / window.innerHeight));
-            const scale = 1 - (index * 0.02);
-            const translateY = Math.max(0, index * 2 - scrollProgress * 10);
-            card.style.transform = `translateY(${translateY}px) scale(${scale})`;
+            const clamp = (value, min = 0, max = 100) => Math.min(Math.max(value, min), max);
+            const round = (value, precision = 3) => parseFloat(value.toFixed(precision));
+
+            const updateCardTransform = (offsetX, offsetY) => {
+                const width = profileCard.clientWidth;
+                const height = profileCard.clientHeight;
+
+                const percentX = clamp((100 / width) * offsetX);
+                const percentY = clamp((100 / height) * offsetY);
+
+                const centerX = percentX - 50;
+                const centerY = percentY - 50;
+
+                profileCardWrapper.style.setProperty('--pointer-x', `${percentX}%`);
+                profileCardWrapper.style.setProperty('--pointer-y', `${percentY}%`);
+                profileCardWrapper.style.setProperty('--rotate-x', `${round(-(centerX / 3.5))}deg`);
+                profileCardWrapper.style.setProperty('--rotate-y', `${round(centerY / 3)}deg`);
+            };
+
+            const handlePointerMove = (event) => {
+                const rect = profileCard.getBoundingClientRect();
+                updateCardTransform(event.clientX - rect.left, event.clientY - rect.top);
+            };
+
+            const handlePointerEnter = () => {
+                profileCard.classList.add('active');
+            };
+
+            const handlePointerLeave = () => {
+                profileCard.classList.remove('active');
+                
+                const startTime = performance.now();
+                const duration = 600;
+                
+                const animate = (currentTime) => {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+                    const currentRotateX = parseFloat(profileCardWrapper.style.getPropertyValue('--rotate-x') || '0');
+                    const currentRotateY = parseFloat(profileCardWrapper.style.getPropertyValue('--rotate-y') || '0');
+
+                    profileCardWrapper.style.setProperty('--rotate-x', `${currentRotateX * (1 - eased)}deg`);
+                    profileCardWrapper.style.setProperty('--rotate-y', `${currentRotateY * (1 - eased)}deg`);
+
+                    if (progress < 1) {
+                        rafId = requestAnimationFrame(animate);
+                    } else {
+                        profileCardWrapper.style.setProperty('--pointer-x', '50%');
+                        profileCardWrapper.style.setProperty('--pointer-y', '50%');
+                    }
+                };
+
+                if (rafId) cancelAnimationFrame(rafId);
+                rafId = requestAnimationFrame(animate);
+            };
+
+            profileCard.addEventListener('pointerenter', handlePointerEnter);
+            profileCard.addEventListener('pointermove', handlePointerMove);
+            profileCard.addEventListener('pointerleave', handlePointerLeave);
+
+            updateCardTransform(profileCard.clientWidth / 2, profileCard.clientHeight / 2);
         }
-    });
-}
-
-// Update project cards on scroll
-window.addEventListener('scroll', updateProjectCards);
-
-// Initial update
-updateProjectCards();
-
+        
     </script>
 </body>
 </html>
