@@ -1654,6 +1654,34 @@
             }, 1000);
         });
 
+        // Enhanced project card stacking - slide in front
+const projectCards = document.querySelectorAll('.project-card');
+
+function updateProjectCards() {
+    projectCards.forEach((card, index) => {
+        // Give each card a base z-index that increases with index
+        const baseZIndex = 100 + (index * 10);
+        card.style.zIndex = baseZIndex;
+
+        const rect = card.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+        
+        if (isVisible) {
+            // Add subtle transform for depth
+            const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / window.innerHeight));
+            const scale = 1 - (index * 0.02);
+            const translateY = Math.max(0, index * 2 - scrollProgress * 10);
+            card.style.transform = `translateY(${translateY}px) scale(${scale})`;
+        }
+    });
+}
+
+// Update project cards on scroll
+window.addEventListener('scroll', updateProjectCards);
+
+// Initial update
+updateProjectCards();
+
     </script>
 </body>
 </html>
