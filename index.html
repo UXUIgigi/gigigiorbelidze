@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gigi Giorbelidze - Product Designer & Game Artist</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com ">
-    <link rel="preconnect" href="https://fonts.gstatic.com " crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap " rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css   ">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js   "></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.birds.min.js   "></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com  ">
+    <link rel="preconnect" href="https://fonts.gstatic.com  " crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap  " rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css    ">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js    "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.birds.min.js    "></script>
     <style>
         :root {
             --dark-blue: #0a0e27;
@@ -287,144 +287,172 @@
             font-size: 1.8rem;
         }
 
-        /* About Section with Floating Image */
+        /* About Section - Fixed with Profile Card */
         .about-grid {
             display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 2rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
             align-items: center;
+            min-height: 500px;
         }
 
-        .about-images-container {
+        .about-text {
             display: flex;
-            gap: 2rem;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
-        .about-image {
-            width: 300px;
-            height: 300px;
+        .keyword-buttons {
             display: flex;
-            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .keyword-btn {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent-blue);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid var(--light-blue);
+            font-family: 'Pixelify Sans', sans-serif;
+            font-size: 0.7rem;
+            transition: all 0.3s ease;
+        }
+
+        .keyword-btn:hover {
+            background: var(--light-blue);
+            color: white;
+            box-shadow: var(--neon-glow);
+        }
+
+        .about-text p {
+            line-height: 1.8;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .about-text strong {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        /* Profile Card - Reactbits.dev Style */
+        .profile-card-container {
+            display: flex;
             justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-5px);
-            }
-        }
-        
-        /* Profile Card Styles - Interactive 3D Card */
-        .profile-card-wrapper {
-            --pointer-x: 50%;
-            --pointer-y: 50%;
-            --pointer-from-center: 0;
-            --rotate-x: 0deg;
-            --rotate-y: 0deg;
-            --background-x: 50%;
-            --background-y: 50%;
-            --card-opacity: 0.6;
-            
-            perspective: 1500px;
-            position: relative;
-            width: 320px;
-            height: 450px;
+            align-items: center;
+            perspective: 1000px;
         }
 
         .profile-card {
             position: relative;
-            width: 100%;
-            height: 100%;
-            background: rgba(30, 58, 138, 0.15);
-            border: 2px solid rgba(59, 130, 246, 0.3);
-            border-radius: 24px;
-            padding: 2rem;
-            backdrop-filter: blur(20px);
+            width: 320px;
+            height: 420px;
+            background: rgba(30, 58, 138, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
             transform-style: preserve-3d;
-            transform: rotateY(var(--rotate-x)) rotateX(var(--rotate-y));
-            transition: transform 0.1s ease-out, border 0.3s ease;
-            will-change: transform;
+            transition: all 0.3s ease;
             overflow: hidden;
+        }
+
+        .profile-card:hover {
+            transform: rotateY(5deg) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+            border-color: var(--accent-blue);
         }
 
         .profile-card::before {
             content: '';
             position: absolute;
-            inset: 0;
-            border-radius: 24px;
-            background: radial-gradient(
-                farthest-side circle at var(--pointer-x) var(--pointer-y),
-                hsla(210, 100%, 70%, var(--card-opacity)) 4%,
-                hsla(210, 50%, 60%, calc(var(--card-opacity) * 0.75)) 10%,
-                hsla(210, 25%, 50%, calc(var(--card-opacity) * 0.5)) 50%,
-                hsla(210, 0%, 40%, 0) 100%
-            );
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(59, 130, 246, 0.1) 0%, 
+                rgba(96, 165, 250, 0.05) 50%, 
+                rgba(59, 130, 246, 0.1) 100%);
+            border-radius: 20px;
             pointer-events: none;
-        }
-
-        .profile-card.active::before {
-            opacity: 1;
-        }
-
-        .profile-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 24px;
-            background: radial-gradient(
-                circle at var(--pointer-x) var(--pointer-y),
-                rgba(59, 130, 246, 0.4) 0%,
-                transparent 60%
-            );
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-
-        .profile-card.active::after {
-            opacity: 1;
-        }
-
-        .profile-card.active {
-            border-color: var(--accent-blue);
         }
 
         .profile-card-content {
             position: relative;
             z-index: 2;
-            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
             height: 100%;
+            justify-content: center;
         }
 
         .profile-avatar {
-            width: 100%;
-            height: 100%;
-            border-radius: 20px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
             object-fit: cover;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease;
+            border: 3px solid var(--accent-blue);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
         }
 
-        .profile-card.active .profile-avatar {
-            transform: translateZ(20px);
+        .profile-card:hover .profile-avatar {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.5);
         }
-        
+
+        .profile-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            text-align: center;
+            font-family: 'Pixelify Sans', sans-serif;
+        }
+
+        .profile-title {
+            font-size: 1rem;
+            color: var(--accent-blue);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-family: 'Pixelify Sans', sans-serif;
+            font-size: 0.8rem;
+        }
+
+        .profile-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .profile-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid var(--light-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-blue);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .profile-link:hover {
+            background: var(--light-blue);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--neon-glow);
+        }
+
         /* Skills Section */
         .skills-grid {
             display: grid;
@@ -975,27 +1003,12 @@
             .about-grid {
                 grid-template-columns: 1fr;
                 text-align: center;
-            }
-            
-            .about-images-container {
-                flex-direction: column;
                 gap: 2rem;
-            }
-            
-            .about-image {
-                margin: 0 auto;
-                width: 250px;
-                height: 250px;
-            }
-
-            .profile-card-wrapper {
-                width: 280px;
-                height: 400px;
-                margin: 0 auto;
             }
 
             .profile-card {
-                padding: 1.5rem;
+                width: 280px;
+                height: 380px;
             }
 
             .profile-avatar {
@@ -1006,7 +1019,7 @@
             .profile-name {
                 font-size: 1.3rem;
             }
-            
+
             .nav-links {
                 display: none;
             }
@@ -1067,7 +1080,7 @@
             animation: fadeInUp 0.6s ease-out;
         }
 
-                /* Shiny Text Effect */
+        /* Shiny Text Effect */
         .shiny-text {
             display: inline-block;
             background: linear-gradient(
@@ -1091,7 +1104,7 @@
                 background-position: -200% center;
             }
         }
-        
+
         /* Magnet Effect */
         .magnet-btn {
             position: relative;
@@ -1102,7 +1115,7 @@
         .magnet-btn:hover {
             transform: scale(1.05);
         }
-        
+
         /* Scroll Progress Bar */
         .progress-bar {
             position: fixed;
@@ -1115,6 +1128,7 @@
             box-shadow: var(--neon-glow);
         }
     </style>
+<base target="_blank">
 </head>
 <body>
     <div class="progress-bar" id="progressBar"></div>
@@ -1164,26 +1178,12 @@
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- About Section - Fixed with Profile Card -->
     <section id="about" class="section">
         <div class="container">
             <h2 class="section-title">About Me</h2>
             <div class="about-grid">
-                <div class="about-images-container">
-                    <div class="about-image">
-                        <img src="character_gigi.png" alt="Gigi Giorbelidze Character">
-                    </div>
-
-<!-- Profile Card with 3D Tilt Effect -->
-                    <div class="profile-card-wrapper" id="profileCardWrapper">
-                        <section class="profile-card" id="profileCard">
-                            <div class="profile-card-content">
-                                <img src="gigi_picture.png" alt="Gigi Giorbelidze" class="profile-avatar">
-                            </div>
-                        </section>
-                    </div>
-                    
-                    <div class="about-text">
+                <div class="about-text">
                     <div class="keyword-buttons">
                         <span class="keyword-btn">Product Design</span>
                         <span class="keyword-btn">UX/UI</span>
@@ -1199,10 +1199,27 @@
                     
                     <p>My approach combines <strong>thorough research</strong>, <strong>iterative design processes</strong>, and attention to the <span class="shiny-text"><strong>smallest details</strong></span>. When I'm not designing, you can find me exploring <strong>new design tools</strong>, contributing to <strong>design communities</strong>, or creating <span class="shiny-text"><strong>pixel art</strong></span> that brings <span class="shiny-text"><strong>digital worlds to life</strong></span>.</p>
                 </div>
-                    
-                    <p>I specialize in creating <span class="shiny-text"><strong>intuitive digital experiences</strong></span> that bridge the gap between <strong>aesthetics</strong> and <strong>functionality</strong>. With expertise in <strong>UX/UI design</strong>, <strong>design systems</strong>, and <strong>game art</strong>, I enjoy crafting <span class="shiny-text"><strong>engaging interfaces</strong></span> that <span class="shiny-text"><strong>tell stories</strong></span> and <strong>solve real user problems</strong>.</p>
-                    
-                    <p>My approach combines <strong>thorough research</strong>, <strong>iterative design processes</strong>, and attention to the <span class="shiny-text"><strong>smallest details</strong></span>. When I'm not designing, you can find me exploring <strong>new design tools</strong>, contributing to <strong>design communities</strong>, or creating <span class="shiny-text"><strong>pixel art</strong></span> that brings <span class="shiny-text"><strong>digital worlds to life</strong></span>.</p>
+                
+                <!-- Profile Card - Reactbits.dev Style -->
+                <div class="profile-card-container">
+                    <div class="profile-card">
+                        <div class="profile-card-content">
+                            <img src="gigi_picture.png" alt="Gigi Giorbelidze" class="profile-avatar">
+                            <div class="profile-name">Gigi Giorbelidze</div>
+                            <div class="profile-title">Product Designer & Game Artist</div>
+                            <div class="profile-links">
+                                <a href="https://www.linkedin.com/in/gigigiorbelidze/" class="profile-link" target="_blank" title="LinkedIn">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                                <a href="https://www.behance.net/Ggiorbelidze" class="profile-link" target="_blank" title="Behance">
+                                    <i class="fab fa-behance"></i>
+                                </a>
+                                <a href="mailto:gigigiorbelidzeuxui@gmail.com" class="profile-link" title="Email">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1363,7 +1380,7 @@
             <h2 class="section-title">Featured Projects</h2>
             
             <div class="projects-container">
-                <div class="project-card" data-project="0" onclick="window.open('https://www.behance.net/gallery/169102117/UXUI-Design-Medical-APP   ', '_blank')">
+                <div class="project-card" data-project="0" onclick="window.open('https://www.behance.net/gallery/169102117/UXUI-Design-Medical-APP    ', '_blank')">
                     <div class="project-image">
                         <i class="fas fa-heartbeat"></i>
                     </div>
@@ -1383,7 +1400,7 @@
                     </div>
                 </div>
 
-                <div class="project-card" data-project="1" onclick="window.open('https://www.behance.net/gallery/225896391/Website-Showcase   ', '_blank')">
+                <div class="project-card" data-project="1" onclick="window.open('https://www.behance.net/gallery/225896391/Website-Showcase    ', '_blank')">
                     <div class="project-image">
                         <i class="fas fa-desktop"></i>
                     </div>
@@ -1403,7 +1420,7 @@
                     </div>
                 </div>
 
-                <div class="project-card" data-project="2" onclick="window.open('https://www.behance.net/gallery/195604979/Eschool-application   ', '_blank')">
+                <div class="project-card" data-project="2" onclick="window.open('https://www.behance.net/gallery/195604979/Eschool-application    ', '_blank')">
                     <div class="project-image">
                         <i class="fas fa-graduation-cap"></i>
                     </div>
@@ -1423,7 +1440,7 @@
                     </div>
                 </div>
 
-                <div class="project-card" data-project="3" onclick="window.open('https://www.behance.net/gallery/177007863/character-and-mobile-game-design   ', '_blank')">
+                <div class="project-card" data-project="3" onclick="window.open('https://www.behance.net/gallery/177007863/character-and-mobile-game-design    ', '_blank')">
                     <div class="project-image">
                         <i class="fas fa-gamepad"></i>
                     </div>
@@ -1443,7 +1460,7 @@
                     </div>
                 </div>
 
-                <div class="project-card" data-project="4" onclick="window.open('https://www.behance.net/gallery/148018157/Waste-Recycle-app   ', '_blank')">
+                <div class="project-card" data-project="4" onclick="window.open('https://www.behance.net/gallery/148018157/Waste-Recycle-app    ', '_blank')">
                     <div class="project-image">
                         <i class="fas fa-recycle"></i>
                     </div>
@@ -1465,7 +1482,7 @@
             </div>
 
             <div class="view-all-projects" style="text-align: center; margin: 3rem 0;">
-                <a href="https://www.behance.net/Ggiorbelidze   " class="btn btn-primary" target="_blank">
+                <a href="https://www.behance.net/Ggiorbelidze    " class="btn btn-primary" target="_blank">
                     <i class="fas fa-external-link-alt"></i>
                     View All Projects
                 </a>
@@ -1515,10 +1532,10 @@
                     <p>Ready to bring your ideas to life? Let's collaborate and create something amazing together!</p>
                     
                     <div class="contact-links-modal">
-                        <a href="https://www.linkedin.com/in/gigigiorbelidze/ " class="contact-link-modal" target="_blank" title="LinkedIn">
+                        <a href="https://www.linkedin.com/in/gigigiorbelidze/" class="contact-link-modal" target="_blank" title="LinkedIn">
                             <i class="fab fa-linkedin"></i>
                         </a>
-                        <a href="https://www.behance.net/Ggiorbelidze " class="contact-link-modal" target="_blank" title="Behance">
+                        <a href="https://www.behance.net/Ggiorbelidze" class="contact-link-modal" target="_blank" title="Behance">
                             <i class="fab fa-behance"></i>
                         </a>
                         <a href="mailto:gigigiorbelidzeuxui@gmail.com" class="contact-link-modal" title="Email">
@@ -1539,10 +1556,10 @@
                     © 2024 Gigi Giorbelidze. Crafting digital experiences with passion.
                 </p>
                 <div class="footer-links">
-                    <a href="https://www.linkedin.com/in/gigigiorbelidze/ " class="footer-link" target="_blank">
+                    <a href="https://www.linkedin.com/in/gigigiorbelidze/" class="footer-link" target="_blank">
                         <i class="fab fa-linkedin"></i>
                     </a>
-                    <a href="https://www.behance.net/Ggiorbelidze " class="footer-link" target="_blank">
+                    <a href="https://www.behance.net/Ggiorbelidze" class="footer-link" target="_blank">
                         <i class="fab fa-behance"></i>
                     </a>
                     <a href="mailto:gigigiorbelidzeuxui@gmail.com" class="footer-link">
@@ -1709,7 +1726,7 @@
             cursor.style.top = e.clientY - 10 + 'px';
         });
 
-         // **INSERT MAGNET BUTTON CODE HERE (after line 1581)**
+        // Magnet button effect
         const magnetButton = document.querySelector('.contact-cta-btn.magnet-btn');
         const magnetStrength = 0.3;
         const magnetDistance = 100;
@@ -1740,7 +1757,7 @@
         }
 
         // Add hover effects to interactive elements
-        document.querySelectorAll('.btn, .project-card, .contact-link-modal, .keyword-btn').forEach(element => {
+        document.querySelectorAll('.btn, .project-card, .contact-link-modal, .keyword-btn, .profile-link').forEach(element => {
             element.addEventListener('mouseenter', function() {
                 cursor.style.transform = 'scale(1.5)';
                 cursor.style.background = 'radial-gradient(circle, var(--light-red) 0%, transparent 70%)';
@@ -1764,78 +1781,6 @@
                 });
             }, 1000);
         });
-
-        // 3D Tilt Profile Card Effect
-        const profileCardWrapper = document.getElementById('profileCardWrapper');
-        const profileCard = document.getElementById('profileCard');
-
-        if (profileCard && profileCardWrapper) {
-            let rafId = null;
-
-            const clamp = (value, min = 0, max = 100) => Math.min(Math.max(value, min), max);
-            const round = (value, precision = 3) => parseFloat(value.toFixed(precision));
-
-            const updateCardTransform = (offsetX, offsetY) => {
-                const width = profileCard.clientWidth;
-                const height = profileCard.clientHeight;
-
-                const percentX = clamp((100 / width) * offsetX);
-                const percentY = clamp((100 / height) * offsetY);
-
-                const centerX = percentX - 50;
-                const centerY = percentY - 50;
-
-                profileCardWrapper.style.setProperty('--pointer-x', `${percentX}%`);
-                profileCardWrapper.style.setProperty('--pointer-y', `${percentY}%`);
-                profileCardWrapper.style.setProperty('--rotate-x', `${round(-(centerX / 3.5))}deg`);
-                profileCardWrapper.style.setProperty('--rotate-y', `${round(centerY / 3)}deg`);
-            };
-
-            const handlePointerMove = (event) => {
-                const rect = profileCard.getBoundingClientRect();
-                updateCardTransform(event.clientX - rect.left, event.clientY - rect.top);
-            };
-
-            const handlePointerEnter = () => {
-                profileCard.classList.add('active');
-            };
-
-            const handlePointerLeave = () => {
-                profileCard.classList.remove('active');
-                
-                const startTime = performance.now();
-                const duration = 600;
-                
-                const animate = (currentTime) => {
-                    const elapsed = currentTime - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    const eased = progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-
-                    const currentRotateX = parseFloat(profileCardWrapper.style.getPropertyValue('--rotate-x') || '0');
-                    const currentRotateY = parseFloat(profileCardWrapper.style.getPropertyValue('--rotate-y') || '0');
-
-                    profileCardWrapper.style.setProperty('--rotate-x', `${currentRotateX * (1 - eased)}deg`);
-                    profileCardWrapper.style.setProperty('--rotate-y', `${currentRotateY * (1 - eased)}deg`);
-
-                    if (progress < 1) {
-                        rafId = requestAnimationFrame(animate);
-                    } else {
-                        profileCardWrapper.style.setProperty('--pointer-x', '50%');
-                        profileCardWrapper.style.setProperty('--pointer-y', '50%');
-                    }
-                };
-
-                if (rafId) cancelAnimationFrame(rafId);
-                rafId = requestAnimationFrame(animate);
-            };
-
-            profileCard.addEventListener('pointerenter', handlePointerEnter);
-            profileCard.addEventListener('pointermove', handlePointerMove);
-            profileCard.addEventListener('pointerleave', handlePointerLeave);
-
-            updateCardTransform(profileCard.clientWidth / 2, profileCard.clientHeight / 2);
-        }
-        
     </script>
 </body>
 </html>
