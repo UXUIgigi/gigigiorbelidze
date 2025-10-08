@@ -530,7 +530,6 @@
         .projects-section {
             padding: 5rem 0 2rem 0;
             position: relative;
-            min-height: 100vh;
         }
 
         .projects-container {
@@ -549,21 +548,40 @@
             transition: all 0.3s ease;
             cursor: pointer;
             backdrop-filter: blur(10px);
-            min-height: 400px;
+            min-height: 450px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            transform: translateY(0);
+            will-change: transform;
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--neon-glow);
             border-color: var(--accent-blue);
+            box-shadow: var(--neon-glow);
         }
 
         .project-card:last-child {
             margin-bottom: 0;
+        }
+
+        .project-card[data-project="0"] {
+            z-index: 5;
+        }
+
+        .project-card[data-project="1"] {
+            z-index: 4;
+        }
+
+        .project-card[data-project="2"] {
+            z-index: 3;
+        }
+
+        .project-card[data-project="3"] {
+            z-index: 2;
+        }
+
+        .project-card[data-project="4"] {
+            z-index: 1;
         }
 
         .project-image {
@@ -1636,33 +1654,6 @@
             }, 1000);
         });
 
-        // Enhanced project card stacking - slide in front
-        const projectCards = document.querySelectorAll('.project-card');
-        
-        function updateProjectCards() {
-            projectCards.forEach((card, index) => {
-                // Give each card a base z-index that increases with index
-                const baseZIndex = 100 + (index * 10);
-                card.style.zIndex = baseZIndex;
-
-                const rect = card.getBoundingClientRect();
-                const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-                
-                if (isVisible) {
-                    // Add subtle transform for depth
-                    const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / window.innerHeight));
-                    const scale = 1 - (index * 0.02);
-                    const translateY = Math.max(0, index * 2 - scrollProgress * 10);
-                    card.style.transform = `translateY(${translateY}px) scale(${scale})`;
-                }
-            });
-        }
-
-        // Update project cards on scroll
-        window.addEventListener('scroll', updateProjectCards);
-        
-        // Initial update
-        updateProjectCards();
     </script>
 </body>
 </html>
