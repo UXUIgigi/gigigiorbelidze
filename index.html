@@ -954,6 +954,31 @@
             animation: fadeInUp 0.6s ease-out;
         }
 
+                /* Shiny Text Effect */
+        .shiny-text {
+            display: inline-block;
+            background: linear-gradient(
+                110deg,
+                var(--text-light) 45%,
+                var(--accent-blue) 50%,
+                var(--text-light) 55%
+            );
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                background-position: 200% center;
+            }
+            100% {
+                background-position: -200% center;
+            }
+        }
+
         /* Scroll Progress Bar */
         .progress-bar {
             position: fixed;
@@ -1024,7 +1049,7 @@
                     <img src="character_gigi.png" alt="Gigi Giorbelidze">
                 </div>
                 <div class="about-text">
-                    <p>Hello! I'm <strong>Gigi Giorbelidze</strong>, a passionate <strong>Product Designer</strong> and <strong>Game Artist</strong> with a love for <strong>pixel-perfect designs</strong> and <strong>user-centered solutions</strong>.</p>
+                   <p>Hello! I'm <strong>Gigi Giorbelidze</strong>, a passionate <strong>Product Designer</strong> and <strong>Game Artist</strong> with a love for <span class="shiny-text"><strong>pixel-perfect designs</strong></span> and <span class="shiny-text"><strong>user-centered solutions</strong></span>.</p>
                     
                     <div class="keyword-buttons">
                         <span class="keyword-btn">Product Design</span>
@@ -1035,9 +1060,9 @@
                         <span class="keyword-btn">User Research</span>
                     </div>
                     
-                    <p>I specialize in creating <strong>intuitive digital experiences</strong> that bridge the gap between <strong>aesthetics</strong> and <strong>functionality</strong>. With expertise in <strong>UX/UI design</strong>, <strong>design systems</strong>, and <strong>game art</strong>, I enjoy crafting <strong>engaging interfaces</strong> that <strong>tell stories</strong> and <strong>solve real user problems</strong>.</p>
+                    <p>I specialize in creating <span class="shiny-text"><strong>intuitive digital experiences</strong></span> that bridge the gap between <strong>aesthetics</strong> and <strong>functionality</strong>. With expertise in <strong>UX/UI design</strong>, <strong>design systems</strong>, and <strong>game art</strong>, I enjoy crafting <span class="shiny-text"><strong>engaging interfaces</strong></span> that <span class="shiny-text"><strong>tell stories</strong></span> and <strong>solve real user problems</strong>.</p>
                     
-                    <p>My approach combines <strong>thorough research</strong>, <strong>iterative design processes</strong>, and attention to the <strong>smallest details</strong>. When I'm not designing, you can find me exploring <strong>new design tools</strong>, contributing to <strong>design communities</strong>, or creating <strong>pixel art</strong> that brings <strong>digital worlds to life</strong>.</p>
+                    <p>My approach combines <strong>thorough research</strong>, <strong>iterative design processes</strong>, and attention to the <span class="shiny-text"><strong>smallest details</strong></span>. When I'm not designing, you can find me exploring <strong>new design tools</strong>, contributing to <strong>design communities</strong>, or creating <span class="shiny-text"><strong>pixel art</strong></span> that brings <span class="shiny-text"><strong>digital worlds to life</strong></span>.</p>
                 </div>
             </div>
         </div>
