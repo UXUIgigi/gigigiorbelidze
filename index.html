@@ -408,55 +408,21 @@
         .profile-card-content {
             position: relative;
             z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
+            width: 100%;
             height: 100%;
         }
 
         .profile-avatar {
-            width: 150px;
-            height: 150px;
+            width: 100%;
+            height: 100%;
             border-radius: 20px;
-            border: 3px solid rgba(59, 130, 246, 0.5);
             object-fit: cover;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease;
         }
 
         .profile-card.active .profile-avatar {
-            transform: translateZ(50px);
-        }
-
-        .profile-info {
-            text-align: center;
-            width: 100%;
-        }
-
-        .profile-name {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--accent-blue);
-            margin-bottom: 0.5rem;
-            font-family: 'Pixelify Sans', sans-serif;
-            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
-        }
-
-        .profile-role {
-            font-size: 1rem;
-            color: var(--text-light);
-            opacity: 0.9;
-            font-family: 'Pixelify Sans', sans-serif;
-            font-size: 0.8rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .profile-handle {
-            font-size: 0.85rem;
-            color: var(--accent-blue);
-            opacity: 0.7;
-            font-family: 'Pixelify Sans', sans-serif;
+            transform: translateZ(20px);
         }
         
         /* Skills Section */
@@ -1208,49 +1174,16 @@
                         <img src="character_gigi.png" alt="Gigi Giorbelidze Character">
                     </div>
 
-                    <!-- Profile Card with 3D Tilt Effect -->
+<!-- Profile Card with 3D Tilt Effect -->
                     <div class="profile-card-wrapper" id="profileCardWrapper">
                         <section class="profile-card" id="profileCard">
                             <div class="profile-card-content">
                                 <img src="gigi_picture.png" alt="Gigi Giorbelidze" class="profile-avatar">
-                                <div class="profile-info">
-                                    <h3 class="profile-name">Gigi Giorbelidze</h3>
-                                    <p class="profile-role">Product Designer</p>
-                                    <p class="profile-handle">@ggiorbelidze</p>
-                                </div>
-                                
-                                <div class="profile-stats">
-                                    <div class="profile-stat">
-                                        <div class="profile-stat-number">5+</div>
-                                        <div class="profile-stat-label">Projects</div>
-                                    </div>
-                                    <div class="profile-stat">
-                                        <div class="profile-stat-number">3+</div>
-                                        <div class="profile-stat-label">Years</div>
-                                    </div>
-                                    <div class="profile-stat">
-                                        <div class="profile-stat-number">4+</div>
-                                        <div class="profile-stat-label">Certs</div>
-                                    </div>
-                                </div>
-                                
-                                <div class="profile-social">
-                                    <a href="https://www.linkedin.com/in/gigigiorbelidze/" class="profile-social-link" target="_blank" title="LinkedIn">
-                                        <i class="fab fa-linkedin"></i>
-                                    </a>
-                                    <a href="https://www.behance.net/Ggiorbelidze" class="profile-social-link" target="_blank" title="Behance">
-                                        <i class="fab fa-behance"></i>
-                                    </a>
-                                    <a href="mailto:gigigiorbelidzeuxui@gmail.com" class="profile-social-link" title="Email">
-                                        <i class="fas fa-envelope"></i>
-                                    </a>
-                                </div>
                             </div>
                         </section>
-                    </div> 
-                <div class="about-text">
-                   <p>Hello! I'm <strong>Gigi Giorbelidze</strong>, a passionate <strong>Product Designer</strong> and <strong>Game Artist</strong> with a love for <span class="shiny-text"><strong>pixel-perfect designs</strong></span> and <span class="shiny-text"><strong>user-centered solutions</strong></span>.</p>
+                    </div>
                     
+                    <div class="about-text">
                     <div class="keyword-buttons">
                         <span class="keyword-btn">Product Design</span>
                         <span class="keyword-btn">UX/UI</span>
@@ -1259,6 +1192,13 @@
                         <span class="keyword-btn">Design Systems</span>
                         <span class="keyword-btn">User Research</span>
                     </div>
+
+                    <p>Hello! I'm <strong>Gigi Giorbelidze</strong>, a passionate <strong>Product Designer</strong> and <strong>Game Artist</strong> with a love for <span class="shiny-text"><strong>pixel-perfect designs</strong></span> and <span class="shiny-text"><strong>user-centered solutions</strong></span>.</p>
+                    
+                    <p>I specialize in creating <span class="shiny-text"><strong>intuitive digital experiences</strong></span> that bridge the gap between <strong>aesthetics</strong> and <strong>functionality</strong>. With expertise in <strong>UX/UI design</strong>, <strong>design systems</strong>, and <strong>game art</strong>, I enjoy crafting <span class="shiny-text"><strong>engaging interfaces</strong></span> that <span class="shiny-text"><strong>tell stories</strong></span> and <strong>solve real user problems</strong>.</p>
+                    
+                    <p>My approach combines <strong>thorough research</strong>, <strong>iterative design processes</strong>, and attention to the <span class="shiny-text"><strong>smallest details</strong></span>. When I'm not designing, you can find me exploring <strong>new design tools</strong>, contributing to <strong>design communities</strong>, or creating <span class="shiny-text"><strong>pixel art</strong></span> that brings <span class="shiny-text"><strong>digital worlds to life</strong></span>.</p>
+                </div>
                     
                     <p>I specialize in creating <span class="shiny-text"><strong>intuitive digital experiences</strong></span> that bridge the gap between <strong>aesthetics</strong> and <strong>functionality</strong>. With expertise in <strong>UX/UI design</strong>, <strong>design systems</strong>, and <strong>game art</strong>, I enjoy crafting <span class="shiny-text"><strong>engaging interfaces</strong></span> that <span class="shiny-text"><strong>tell stories</strong></span> and <strong>solve real user problems</strong>.</p>
                     
