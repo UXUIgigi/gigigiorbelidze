@@ -385,6 +385,35 @@
             overflow: hidden;
             will-change: transform;
             box-shadow: 0 10px 40px rgba(59, 130, 246, 0.2);
+            position: relative;
+        }
+
+        /* Add these new styles */
+        .pixel-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .profile-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.3), transparent 70%);
+            opacity: 0;
+            transition: opacity 800ms cubic-bezier(0.5, 1, 0.89, 1);
+            z-index: 1;
+        }
+
+        .profile-card:hover::after {
+            opacity: 1;
         }
 
         .profile-card::before {
@@ -416,15 +445,17 @@
         }
 
         .profile-avatar {
+            position: relative;
             width: 100%;
             height: 100%
-            border-radius: 2px;
+            border-radius: 24px;
             object-fit: cover;
             object-position: center top;
             border: none;
             box-shadow: none;
             margin-bottom: 0;
             transform: translateZ(40px);
+            z-index: 2;
         }
         
         .profile-name {
@@ -1243,7 +1274,8 @@
                 <div class="profile-card-container">
                     <figure class="tilted-card-figure" id="tiltedCard">
                         <div class="tilted-card-inner" id="tiltedInner">
-                            <div class="profile-card">
+                            <div class="profile-card" id="pixelCardContainer">
+                                <canvas class="pixel-canvas" id="pixelCanvas"></canvas>
                                 <div class="profile-card-content">
                                     <img src="gigi_picture.png" alt="Gigi Giorbelidze" class="profile-avatar">
                                 </div>
@@ -1971,6 +2003,152 @@
             figure.addEventListener('mouseleave', handleMouseLeave);
         };
 
+        // Pixel Card Effect
+        class Pixel {
+            constructor(canvas, context, x, y, color, speed, delay) {
+                this.width = canvas.width;
+                this.height = canvas.height;
+                this.ctx = context;
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.speed = speed;
+                this.size = 0;
+                this.sizeStep = Math.random() * 0.4;
+                this.minSize = 0.5;
+                this.maxSize = Math.random() * 1.5 + 0.5;
+                this.delay = delay;
+                this.counter = 0;
+                this.counterStep = Math.random() * 4 + 2;
+                this.isIdle = false;
+                this.isReverse = false;
+                this.isShimmer = false;
+            }
+
+            draw() {
+                const centerOffset = 1 - this.size * 0.5;
+                this.ctx.fillStyle = this.color;
+                this.ctx.fillRect(this.x + centerOffset, this.y + centerOffset, this.size, this.size);
+            }
+
+            appear() {
+                this.isIdle = false;
+                if (this.counter <= this.delay) {
+                    this.counter += this.counterStep;
+                    return;
+                }
+                if (this.size >= this.maxSize) {
+                    this.isShimmer = true;
+                }
+                if (this.isShimmer) {
+                    this.shimmer();
+                } else {
+                    this.size += this.sizeStep;
+                }
+                this.draw();
+            }
+            disappear() {
+                this.isShimmer = false
+                    this.counter = 0;
+                if (this.size <= 0) {
+                    this.isIdle = true;
+                    return;
+                } else {
+                    this.size -= 0.1;
+                }
+                this.draw()
+            }
+            
+            shimmer() {
+                if (this.size >= this.maxSize) {
+                    this.isReverse = true;
+                } else if (this.size <= this.minSize) {
+                    this.isReverse = false;
+                }
+                if (this.isReverse) {
+                    this.size -= this.speed;
+                } else {
+                    this.size += this.speed
+                }
+            }
+        }
+        
+        // Initialize Pixel Effect
+        const initPixelCard = () => {
+            const canvas = document.getElementById('pixelCanvas');
+            const container = document.getElementById('pixelCardContainer');
+    
+            if (!canvas || !container) return;
+    
+            const rect = container.getBoundingClientRect();
+            const ctx = canvas.getContext('2d');
+    
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+    
+            // Pink variant colors to match your theme
+            const colors = ['#fecdd3', '#fda4af', '#e11d48'];
+            const gap = 6;
+            const speed = 0.08;
+            const pixels = [];
+            
+            for (let x = 0; x < canvas.width; x += gap) {
+                for (let y = 0; y < canvas.height; y += gap) {
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    const dx = x - canvas.width / 2;
+                    const dy = y - canvas.height / 2;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    pixels.push(new Pixel(canvas, ctx, x, y, color, speed, distance));
+                }
+            }
+    
+            let animationFrame;
+            let timePrevious = performance.now();
+    
+            const animate = (fnName) => {
+                animationFrame = requestAnimationFrame(() => animate(fnName));
+                const timeNow = performance.now();
+                const timePassed = timeNow - timePrevious;
+                const timeInterval = 1000 / 60;
+        
+                if (timePassed < timeInterval) return;
+                timePrevious = timeNow - (timePassed % timeInterval);
+        
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+                let allIdle = true;
+                pixels.forEach(pixel => {
+                    pixel[fnName]();
+                    if (!pixel.isIdle) allIdle = false;
+                });
+        
+                if (allIdle) {
+                    cancelAnimationFrame(animationFrame);
+                }
+            };
+    
+            container.addEventListener('mouseenter', () => {
+                cancelAnimationFrame(animationFrame);
+                animate('appear');
+            });
+    
+            container.addEventListener('mouseleave', () => {
+                cancelAnimationFrame(animationFrame);
+                animate('disappear');
+            });
+    
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                const newRect = container.getBoundingClientRect();
+                canvas.width = newRect.width;
+                canvas.height = newRect.height;
+            });
+        };
+        // Initialize pixel card effect after page loads
+        window.addEventListener('load', () => {
+            setTimeout(initPixelCard, 500)
+        });
+        
         // Initialize tilted card
         initTiltedCard();
     </script>
