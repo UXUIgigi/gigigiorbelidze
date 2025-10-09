@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js    "></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.birds.min.js    "></script>
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
         :root {
             --dark-blue: #0a0e27;
@@ -339,31 +340,51 @@
             font-weight: 600;
         }
 
-        /* Profile Card - Reactbits.dev Style */
+        /* Tilted Card - Profile Card */
         .profile-card-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 1000px;
+            perspective: 800px;
+            position: relative;
+            height: 450px;
+        }
+
+        .tilted-card-figure {
+            position: relative;
+            width: 100%;
+            max-width: 350px;
+            height: 450px;
+            perspective: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tilted-card-inner {
+            position: relative;
+            width: 350px;
+            height: 450px;
+            transform-style: preserve-3d;
+            will-change: transform;
+            transition: transform 0.1s ease-out;
         }
 
         .profile-card {
-            position: relative;
-            width: 320px;
-            height: 420px;
-            background: rgba(30, 58, 138, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 58, 138, 0.15);
+            border: 2px solid rgba(59, 130, 246, 0.4);
+            border-radius: 24px;
+            backdrop-filter: blur(15px);
             transform-style: preserve-3d;
-            transition: all 0.3s ease;
             overflow: hidden;
-        }
-
-        .profile-card:hover {
-            transform: rotateY(5deg) rotateX(5deg);
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
-            border-color: var(--accent-blue);
+            will-change: transform;
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.2);
         }
 
         .profile-card::before {
@@ -373,70 +394,71 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(45deg, 
-                rgba(59, 130, 246, 0.1) 0%, 
-                rgba(96, 165, 250, 0.05) 50%, 
-                rgba(59, 130, 246, 0.1) 100%);
-            border-radius: 20px;
+            background: linear-gradient(135deg, 
+                                        rgba(59, 130, 246, 0.15) 0%, 
+                                        rgba(96, 165, 250, 0.05) 50%, 
+                                        rgba(59, 130, 246, 0.15) 100%);
+            border-radius: 24px;
             pointer-events: none;
+            z-index: 1;
         }
-
+        
         .profile-card-content {
             position: relative;
             z-index: 2;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 2rem;
+            padding: 2.5rem 2rem;
             height: 100%;
             justify-content: center;
+            transform: translateZ(30px);
         }
 
         .profile-avatar {
-            width: 150px;
-            height: 150px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--accent-blue);
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+            border: 4px solid var(--accent-blue);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
             margin-bottom: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .profile-card:hover .profile-avatar {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.5);
+            transform: translateZ(40px);
         }
 
         .profile-name {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--text-light);
             margin-bottom: 0.5rem;
             text-align: center;
             font-family: 'Pixelify Sans', sans-serif;
+            text-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
+            transform: translateZ(35px);
         }
-
+        
         .profile-title {
             font-size: 1rem;
             color: var(--accent-blue);
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             text-align: center;
             font-family: 'Pixelify Sans', sans-serif;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
+            transform: translateZ(30px);
         }
 
         .profile-links {
             display: flex;
             gap: 1rem;
             justify-content: center;
+            transform: translateZ(35px);
         }
 
         .profile-link {
-            width: 40px;
-            height: 40px;
-            background: rgba(59, 130, 246, 0.2);
-            border: 1px solid var(--light-blue);
+            width: 45px;
+            height: 45px;
+            background: rgba(59, 130, 246, 0.3);
+            border: 2px solid var(--light-blue);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -444,14 +466,33 @@
             color: var(--accent-blue);
             text-decoration: none;
             transition: all 0.3s ease;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
         }
-
+        
         .profile-link:hover {
             background: var(--light-blue);
             color: white;
             transform: translateY(-3px);
             box-shadow: var(--neon-glow);
+        }
+
+        .tilted-card-caption {
+            pointer-events: none;
+            position: absolute;
+            left: 0;
+            top: 0;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--light-blue), var(--accent-blue));
+            padding: 8px 16px;
+            font-size: 0.75rem;
+            color: white;
+            font-family: 'Pixelify Sans', sans-serif;
+            font-weight: 600;
+            opacity: 0;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            white-space: nowrap;
+            transition: opacity 0.2s ease;
         }
 
         /* Skills Section */
@@ -1197,29 +1238,35 @@
                     <p>My approach combines <strong>thorough research</strong>, <strong>iterative design processes</strong>, and attention to the <span class="shiny-text"><strong>smallest details</strong></span>. When I'm not designing, you can find me exploring <strong>new design tools</strong>, contributing to <strong>design communities</strong>, or creating <span class="shiny-text"><strong>pixel art</strong></span> that brings <span class="shiny-text"><strong>digital worlds to life</strong></span>.</p>
                 </div>
                 
-                <!-- Profile Card - Reactbits.dev Style -->
+                <!-- Tilted Profile Card --> 
                 <div class="profile-card-container">
-                    <div class="profile-card">
-                        <div class="profile-card-content">
-                            <img src="gigi_picture.png" alt="Gigi Giorbelidze" class="profile-avatar">
-                            <div class="profile-name">Gigi Giorbelidze</div>
-                            <div class="profile-title">Product Designer & Game Artist</div>
-                            <div class="profile-links">
-                                <a href="https://www.linkedin.com/in/gigigiorbelidze/" class="profile-link" target="_blank" title="LinkedIn">
-                                    <i class="fab fa-linkedin"></i>
-                                </a>
-                                <a href="https://www.behance.net/Ggiorbelidze" class="profile-link" target="_blank" title="Behance">
-                                    <i class="fab fa-behance"></i>
-                                </a>
-                                <a href="mailto:gigigiorbelidzeuxui@gmail.com" class="profile-link" title="Email">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
+                    <figure class="tilted-card-figure" id="tiltedCard">
+                        <div class="tilted-card-inner" id="tiltedInner">
+                            <div class="profile-card">
+                                <div class="profile-card-content">
+                                    <img src="gigi_picture.png" alt="Gigi Giorbelidze" class="profile-avatar">
+                                    <div class="profile-name">Gigi Giorbelidze</div>
+                                    <div class="profile-title">Product Designer & Game Artist</div>
+                                    <div class="profile-links">
+                                        <a href="https://www.linkedin.com/in/gigigiorbelidze/" class="profile-link" target="_blank" title="LinkedIn">
+                                            <i class="fab fa-linkedin"></i>
+                                        </a>
+                                        <a href="https://www.behance.net/Ggiorbelidze" class="profile-link" target="_blank" title="Behance">
+                                            <i class="fab fa-behance"></i>
+                                        </a>
+                                        <a href="mailto:gigigiorbelidzeuxui@gmail.com" class="profile-link" title="Email">
+                                            <i class="fas fa-envelope"></i>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <figcaption class="tilted-card-caption" id="tiltedCaption">
+                            Hover to tilt
+                        </figcaption>
+                    </figure>
                 </div>
             </div>
-        </div>
     </section>
 
     <!-- Skills Section -->
@@ -1838,6 +1885,106 @@
 
         // Initialize scroll stack
         initScrollStack();
+
+        // Tilted Card Effect
+        const initTiltedCard = () => {
+            const figure = document.getElementById('tiltedCard');
+            const inner = document.getElementById('tiltedInner');
+            const caption = document.getElementById('tiltedCaption');
+            
+            if (!figure || !inner || !caption) return;
+
+            const rotateAmplitude = 12;
+            const scaleOnHover = 1.08;
+            
+            let currentRotateX = 0;
+            let currentRotateY = 0;
+            let currentScale = 1;
+            let lastY = 0;
+            let captionRotate = 0;
+            
+            // Smooth animation using GSAP-like easing
+            const lerp = (start, end, factor) => start + (end - start) * factor;
+            
+            function animate() {
+                // Smooth lerp for rotation and scale
+                const lerpFactor = 0.15;
+                
+                const rotateX = lerp(
+                    parseFloat(inner.style.getPropertyValue('--rotate-x') || 0),
+                    currentRotateX,
+                    lerpFactor
+                );
+                
+                const rotateY = lerp(
+                    parseFloat(inner.style.getPropertyValue('--rotate-y') || 0),
+                    currentRotateY,
+                    lerpFactor
+                );
+                
+                const scale = lerp(
+                    parseFloat(inner.style.getPropertyValue('--scale') || 1),
+                    currentScale,
+                    lerpFactor
+                );
+                
+                inner.style.setProperty('--rotate-x', rotateX);
+                inner.style.setProperty('--rotate-y', rotateY);
+                inner.style.setProperty('--scale', scale);
+                inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
+                
+                // Caption rotation
+                const captionRotateCurrent = lerp(
+                    parseFloat(caption.style.getPropertyValue('--caption-rotate') || 0),
+                    captionRotate,
+                    0.2
+                );
+                caption.style.setProperty('--caption-rotate', captionRotateCurrent);
+                caption.style.transform = `rotate(${captionRotateCurrent}deg)`;
+                
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+            
+            function handleMouse(e) {
+                const rect = figure.getBoundingClientRect();
+                const offsetX = e.clientX - rect.left - rect.width / 2;
+                const offsetY = e.clientY - rect.top - rect.height / 2;
+                
+                currentRotateX = (offsetY / (rect.height / 2)) * -rotateAmplitude;
+                currentRotateY = (offsetX / (rect.width / 2)) * rotateAmplitude;
+                
+                // Update caption position
+                caption.style.left = (e.clientX - rect.left) + 'px';
+                caption.style.top = (e.clientY - rect.top) + 'px';
+                
+                // Caption rotation based on velocity
+                const velocityY = offsetY - lastY;
+                captionRotate = -velocityY * 0.6;
+                lastY = offsetY;
+            }
+            
+            function handleMouseEnter() {
+                currentScale = scaleOnHover;
+                caption.style.opacity = '1';
+            }
+            
+            function handleMouseLeave() {
+                currentScale = 1;
+                currentRotateX = 0;
+                currentRotateY = 0;
+                captionRotate = 0;
+                caption.style.opacity = '0';
+            }
+            
+            figure.addEventListener('mousemove', handleMouse);
+            figure.addEventListener('mouseenter', handleMouseEnter);
+            figure.addEventListener('mouseleave', handleMouseLeave);
+        };
+
+        // Initialize tilted card
+        initTiltedCard();
     </script>
 </body>
 </html>
