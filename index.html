@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css    ">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js    "></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.birds.min.js    "></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.0.42/dist/lenis.min.js"></script>
     <style>
         :root {
             --dark-blue: #0a0e27;
@@ -625,33 +626,48 @@
             font-size: 0.5rem;
         }
 
-        /* Projects Section - Enhanced Stacking Cards */
+        /* Projects Section - Scroll Stack Cards */
         .projects-section {
-            padding: 5rem 0 2rem 0;
-            position: relative;
-        }
-
-        .projects-container {
             position: relative;
             width: 100%;
+            min-height: 100vh;
+            overflow: visible;
+        }
+
+        .scroll-stack-scroller {
+            position: relative;
+            width: 100%;
+            height: auto;
+            overflow: visible;
+        }
+
+        .scroll-stack-inner {
+            padding: 5rem 0 100vh;
+            min-height: 100vh;
         }
 
         .project-card {
             position: sticky;
             top: 120px;
+            transform-origin: top center;
+            will-change: transform, filter;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
             background: rgba(30, 58, 138, 0.2);
             border: 1px solid var(--light-blue);
             border-radius: 16px;
             padding: 3rem;
-            margin-bottom: 2rem;
-            transition: all 0.3s ease;
+            transition: border 0.3s ease;
             cursor: pointer;
             backdrop-filter: blur(10px);
             min-height: 450px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            will-change: transform;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            margin-bottom: 30px;
         }
 
         .project-card:hover {
@@ -659,28 +675,9 @@
             box-shadow: var(--neon-glow);
         }
 
-        .project-card:last-child {
-            margin-bottom: 0;
-        }
-
-        .project-card[data-project="0"] {
-            z-index: 5;
-        }
-
-        .project-card[data-project="1"] {
-            z-index: 4;
-        }
-
-        .project-card[data-project="2"] {
-            z-index: 3;
-        }
-
-        .project-card[data-project="3"] {
-            z-index: 2;
-        }
-
-        .project-card[data-project="4"] {
-            z-index: 1;
+        .scroll-stack-end {
+            width: 100%;
+            height: 1px;
         }
 
         .project-image {
@@ -1374,115 +1371,119 @@
         </div>
     </section>
 
-    <!-- Projects Section - Enhanced Stacking Cards -->
+    <!-- Projects Section - Scroll Stack Cards -->
     <section id="projects" class="projects-section">
         <div class="container">
             <h2 class="section-title">Featured Projects</h2>
             
-            <div class="projects-container">
-                <div class="project-card" data-project="0" onclick="window.open('https://www.behance.net/gallery/169102117/UXUI-Design-Medical-APP    ', '_blank')">
-                    <div class="project-image">
-                        <i class="fas fa-heartbeat"></i>
+            <div class="scroll-stack-scroller" id="scrollStack">
+                <div class="scroll-stack-inner">
+                    <div class="project-card scroll-stack-card" onclick="window.open('https://www.behance.net/gallery/169102117/UXUI-Design-Medical-APP', '_blank')">
+                        <div class="project-image">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div class="project-title">Medical App UX/UI Design</div>
+                        <div class="project-description">
+                            A comprehensive healthcare application focused on patient experience and medical professional workflows.
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag">UX Research</span>
+                            <span class="tech-tag">UI Design</span>
+                            <span class="tech-tag">Prototyping</span>
+                            <span class="tech-tag">Healthcare</span>
+                        </div>
+                        <div class="view-project">
+                            <span>View Full Project</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
                     </div>
-                    <div class="project-title">Medical App UX/UI Design</div>
-                    <div class="project-description">
-                        A comprehensive healthcare application focused on patient experience and medical professional workflows.
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">UX Research</span>
-                        <span class="tech-tag">UI Design</span>
-                        <span class="tech-tag">Prototyping</span>
-                        <span class="tech-tag">Healthcare</span>
-                    </div>
-                    <div class="view-project">
-                        <span>View Full Project</span>
-                        <i class="fas fa-external-link-alt"></i>
-                    </div>
-                </div>
 
-                <div class="project-card" data-project="1" onclick="window.open('https://www.behance.net/gallery/225896391/Website-Showcase    ', '_blank')">
-                    <div class="project-image">
-                        <i class="fas fa-desktop"></i>
+                    <div class="project-card scroll-stack-card" onclick="window.open('https://www.behance.net/gallery/225896391/Website-Showcase', '_blank')">
+                        <div class="project-image">
+                            <i class="fas fa-desktop"></i>
+                        </div>
+                        <div class="project-title">Website Showcase</div>
+                        <div class="project-description">
+                            Modern website design showcasing innovative layouts and interactive user experiences.
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag">Web Design</span>
+                            <span class="tech-tag">Responsive</span>
+                            <span class="tech-tag">Interactive</span>
+                            <span class="tech-tag">Showcase</span>
+                        </div>
+                        <div class="view-project">
+                            <span>View Full Project</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
                     </div>
-                    <div class="project-title">Website Showcase</div>
-                    <div class="project-description">
-                        Modern website design showcasing innovative layouts and interactive user experiences.
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">Web Design</span>
-                        <span class="tech-tag">Responsive</span>
-                        <span class="tech-tag">Interactive</span>
-                        <span class="tech-tag">Showcase</span>
-                    </div>
-                    <div class="view-project">
-                        <span>View Full Project</span>
-                        <i class="fas fa-external-link-alt"></i>
-                    </div>
-                </div>
 
-                <div class="project-card" data-project="2" onclick="window.open('https://www.behance.net/gallery/195604979/Eschool-application    ', '_blank')">
-                    <div class="project-image">
-                        <i class="fas fa-graduation-cap"></i>
+                    <div class="project-card scroll-stack-card" onclick="window.open('https://www.behance.net/gallery/195604979/Eschool-application', '_blank')">
+                        <div class="project-image">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="project-title">E-School Application</div>
+                        <div class="project-description">
+                            Educational platform design focusing on student engagement and learning management systems.
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag">EdTech</span>
+                            <span class="tech-tag">Platform Design</span>
+                            <span class="tech-tag">User Experience</span>
+                            <span class="tech-tag">Learning</span>
+                        </div>
+                        <div class="view-project">
+                            <span>View Full Project</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
                     </div>
-                    <div class="project-title">E-School Application</div>
-                    <div class="project-description">
-                        Educational platform design focusing on student engagement and learning management systems.
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">EdTech</span>
-                        <span class="tech-tag">Platform Design</span>
-                        <span class="tech-tag">User Experience</span>
-                        <span class="tech-tag">Learning</span>
-                    </div>
-                    <div class="view-project">
-                        <span>View Full Project</span>
-                        <i class="fas fa-external-link-alt"></i>
-                    </div>
-                </div>
 
-                <div class="project-card" data-project="3" onclick="window.open('https://www.behance.net/gallery/177007863/character-and-mobile-game-design    ', '_blank')">
-                    <div class="project-image">
-                        <i class="fas fa-gamepad"></i>
+                    <div class="project-card scroll-stack-card" onclick="window.open('https://www.behance.net/gallery/177007863/character-and-mobile-game-design', '_blank')">
+                        <div class="project-image">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <div class="project-title">Character & Mobile Game Design</div>
+                        <div class="project-description">
+                            Game art and character design for mobile gaming applications with pixel art aesthetics.
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag">Game Art</span>
+                            <span class="tech-tag">Character Design</span>
+                            <span class="tech-tag">Pixel Art</span>
+                            <span class="tech-tag">Mobile Games</span>
+                        </div>
+                        <div class="view-project">
+                            <span>View Full Project</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
                     </div>
-                    <div class="project-title">Character & Mobile Game Design</div>
-                    <div class="project-description">
-                        Game art and character design for mobile gaming applications with pixel art aesthetics.
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">Game Art</span>
-                        <span class="tech-tag">Character Design</span>
-                        <span class="tech-tag">Pixel Art</span>
-                        <span class="tech-tag">Mobile Games</span>
-                    </div>
-                    <div class="view-project">
-                        <span>View Full Project</span>
-                        <i class="fas fa-external-link-alt"></i>
-                    </div>
-                </div>
 
-                <div class="project-card" data-project="4" onclick="window.open('https://www.behance.net/gallery/148018157/Waste-Recycle-app    ', '_blank')">
-                    <div class="project-image">
-                        <i class="fas fa-recycle"></i>
+                    <div class="project-card scroll-stack-card" onclick="window.open('https://www.behance.net/gallery/148018157/Waste-Recycle-app', '_blank')">
+                        <div class="project-image">
+                            <i class="fas fa-recycle"></i>
+                        </div>
+                        <div class="project-title">Waste Recycle App</div>
+                        <div class="project-description">
+                            Environmental application promoting sustainable practices through gamified recycling experiences.
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag">Sustainability</span>
+                            <span class="tech-tag">Gamification</span>
+                            <span class="tech-tag">Mobile App</span>
+                            <span class="tech-tag">Social Impact</span>
+                        </div>
+                        <div class="view-project">
+                            <span>View Full Project</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
                     </div>
-                    <div class="project-title">Waste Recycle App</div>
-                    <div class="project-description">
-                        Environmental application promoting sustainable practices through gamified recycling experiences.
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">Sustainability</span>
-                        <span class="tech-tag">Gamification</span>
-                        <span class="tech-tag">Mobile App</span>
-                        <span class="tech-tag">Social Impact</span>
-                    </div>
-                    <div class="view-project">
-                        <span>View Full Project</span>
-                        <i class="fas fa-external-link-alt"></i>
-                    </div>
+
+                    <div class="scroll-stack-end"></div>
                 </div>
             </div>
 
             <div class="view-all-projects" style="text-align: center; margin: 3rem 0;">
-                <a href="https://www.behance.net/Ggiorbelidze    " class="btn btn-primary" target="_blank">
+                <a href="https://www.behance.net/Ggiorbelidze" class="btn btn-primary" target="_blank">
                     <i class="fas fa-external-link-alt"></i>
                     View All Projects
                 </a>
@@ -1781,6 +1782,62 @@
                 });
             }, 1000);
         });
+        
+        // Scroll Stack Effect for Project Cards
+        const initScrollStack = () => {
+            const cards = document.querySelectorAll('.scroll-stack-card');
+            if (!cards.length) return;
+
+            const stackPosition = 120; // pixels from top
+            const itemScale = 0.03;
+            const itemStackDistance = 30;
+            const baseScale = 0.85;
+
+            const updateCardTransforms = () => {
+                const scrollTop = window.pageYOffset;
+                const containerHeight = window.innerHeight;
+
+                cards.forEach((card, i) => {
+                    const cardTop = card.offsetTop + card.offsetParent.offsetTop;
+                    const triggerStart = cardTop - stackPosition - itemStackDistance * i;
+                    const triggerEnd = cardTop - containerHeight * 0.1;
+
+                    const progress = Math.max(0, Math.min(1, (scrollTop - triggerStart) / (triggerEnd - triggerStart)));
+                    
+                    const targetScale = baseScale + i * itemScale;
+                    const scale = 1 - progress * (1 - targetScale);
+                    
+                    const pinStart = cardTop - stackPosition - itemStackDistance * i;
+                    const isPinned = scrollTop >= pinStart;
+                    
+                    let translateY = 0;
+                    if (isPinned) {
+                        translateY = scrollTop - cardTop + stackPosition + itemStackDistance * i;
+                    }
+
+                    card.style.transform = `translate3d(0, ${translateY}px, 0) scale(${scale})`;
+                });
+            };
+
+            // Smooth scroll with Lenis
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smoothWheel: true,
+                touchMultiplier: 2,
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                updateCardTransforms();
+                requestAnimationFrame(raf);
+            }
+
+            requestAnimationFrame(raf);
+        };
+
+        // Initialize scroll stack
+        initScrollStack();
     </script>
 </body>
 </html>
