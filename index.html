@@ -767,6 +767,65 @@
             color: white;
         }
 
+        .project-image-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 2px solid var(--light-blue);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            will-change: transform;
+        }
+        
+        .project-card:hover .project-image-img {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        }
+        
+        .project-image-container {
+            width: 100%;
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--mid-blue), var(--light-blue));
+        }
+
+        .project-image-parallax {
+            position: absolute;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid var(--light-blue);
+            transition: box-shadow 0.3s ease;
+            will-change: transform;
+        }
+        
+        .parallax-left {
+            left: 10%;
+            width: 40%;
+            z-index: 2;
+        }
+
+        .parallax-right {
+            right: 10%;
+            width: 40%;
+            z-index: 1;
+        }
+
+        .parallax-center {
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            z-index: 2;
+        }
+
+        .project-card:hover .project-image-parallax {
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        }
+        
         .project-title {
             font-size: 1.8rem;
             font-weight: 600;
@@ -1447,10 +1506,12 @@
             <div class="scroll-stack-scroller" id="scrollStack">
                 <div class="scroll-stack-inner">
                     <div class="project-card scroll-stack-card" onclick="window.open('https://www.behance.net/gallery/169102117/UXUI-Design-Medical-APP', '_blank')">
-                        <div class="project-image">
-                            <i class="fas fa-heartbeat"></i>
+                        <div class="project-image-container" data-parallax-container>
+                            <img src="medical-app-left.jpg" alt="Medical App Screen 1" class="project-image-parallax parallax-left" data-parallax-speed="0.3">
+                            <img src="medical-app-right.jpg" alt="Medical App Screen 2" class="project-image-parallax parallax-right" data-parallax-speed="-0.3">
                         </div>
                         <div class="project-title">Medical App UX/UI Design</div>
+                        <!-- rest stays same -->
                         <div class="project-description">
                             A comprehensive healthcare application focused on patient experience and medical professional workflows.
                         </div>
@@ -1467,10 +1528,11 @@
                     </div>
 
                     <div class="project-card scroll-stack-card" onclick="window.open('https://www.behance.net/gallery/225896391/Website-Showcase', '_blank')">
-                        <div class="project-image">
-                            <i class="fas fa-desktop"></i>
+                        <div class="project-image-container" data-parallax-container>
+                            <img src="website-showcase.jpg" alt="Website Showcase" class="project-image-parallax parallax-center" data-parallax-speed="0.2">
                         </div>
                         <div class="project-title">Website Showcase</div>
+                        <!-- rest stays same -->
                         <div class="project-description">
                             Modern website design showcasing innovative layouts and interactive user experiences.
                         </div>
@@ -2152,6 +2214,40 @@
         
         // Initialize tilted card
         initTiltedCard();
+        // Parallax Scroll Effect for Project Images
+        const initParallaxImages = () => {
+            const parallaxContainers = document.querySelectorAll('[data-parallax-container]');
+    
+            const updateParallax = () => {
+                parallaxContainers.forEach(container => {
+                    const rect = container.getBoundingClientRect();
+                    const containerTop = rect.top;
+                    const containerBottom = rect.bottom;
+                    const windowHeight = window.innerHeight;
+            
+                    if (containerTop < windowHeight && containerBottom > 0) {
+                        const images = container.querySelectorAll('.project-image-parallax');
+                
+                        images.forEach(img => {
+                            const speed = parseFloat(img.getAttribute('data-parallax-speed') || 0.2);
+                            const scrollProgress = (windowHeight - containerTop) / (windowHeight + rect.height);
+                            const movement = (scrollProgress - 0.5) * 100 * speed;
+                    
+                            if (img.classList.contains('parallax-center')) {
+                                img.style.transform = `translate(-50%, ${movement}px)`;
+                            } else {
+                                img.style.transform = `translateY(${movement}px)`;
+                            }
+                        });
+                    }
+                });
+            };
+    
+            window.addEventListener('scroll', updateParallax);
+            updateParallax();
+        };
+
+        initParallaxImages();
     </script>
 </body>
 </html>
