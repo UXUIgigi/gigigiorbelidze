@@ -346,7 +346,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 800px;
+            perspective: 1000px;
             position: relative;
             height: 450px;
         }
@@ -356,7 +356,7 @@
             width: 100%;
             max-width: 350px;
             height: 450px;
-            perspective: 800px;
+            perspective: 1000px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -369,144 +369,22 @@
             height: 450px;
             transform-style: preserve-3d;
             will-change: transform;
-            transition: transform 0.1s ease-out;
         }
 
-        .profile-card {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .tilted-card-img {
             width: 100%;
             height: 100%;
-            background: rgba(30, 58, 138, 0.15);
-            border: 2px solid rgba(59, 130, 246, 0.4);
-            border-radius: 24px;
-            backdrop-filter: blur(15px);
-            transform-style: preserve-3d;
-            overflow: hidden;
-            will-change: transform;
-            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.2);
-            position: relative;
-        }
-
-        /* Add these new styles */
-        .pixel-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .profile-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            margin: auto;
-            width: 80%;
-            height: 80%;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.3), transparent 70%);
-            opacity: 0;
-            transition: opacity 800ms cubic-bezier(0.5, 1, 0.89, 1);
-            z-index: 1;
-        }
-
-        .profile-card:hover::after {
-            opacity: 1;
-        }
-
-        .profile-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, 
-                                        rgba(59, 130, 246, 0.15) 0%, 
-                                        rgba(96, 165, 250, 0.05) 50%, 
-                                        rgba(59, 130, 246, 0.15) 100%);
-            border-radius: 2px;
-            pointer-events: none;
-            z-index: 1;
-        }
-        
-        .profile-card-content {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0 0 0.1rem 0;
-            height: 100%;
-            justify-content: flex-start;
-            transform: translateZ(30px);
-        }
-
-        .profile-avatar {
-            position: relative;
-            width: 100%;
-            height: 100%
-            border-radius: 2px;
             object-fit: cover;
             object-position: center top;
-            border: none;
-            box-shadow: none;
-            margin-bottom: 0;
-            transform: translateZ(40px);
-            z-index: 2;
-        }
-        
-        .profile-name {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text-light);
-            margin-bottom: 0.5rem;
-            text-align: center;
-            font-family: 'Pixelify Sans', sans-serif;
-            text-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
-            transform: translateZ(35px);
-        }
-        
-        .profile-title {
-            font-size: 1rem;
-            color: var(--accent-blue);
-            margin-bottom: 2rem;
-            text-align: center;
-            font-family: 'Pixelify Sans', sans-serif;
-            font-size: 0.9rem;
-            transform: translateZ(30px);
+            border-radius: 24px;
+            border: 2px solid rgba(59, 130, 246, 0.4);
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.3);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .profile-links {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            transform: translateZ(35px);
-        }
-
-        .profile-link {
-            width: 45px;
-            height: 45px;
-            background: rgba(59, 130, 246, 0.3);
-            border: 2px solid var(--light-blue);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent-blue);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1.3rem;
-        }
-        
-        .profile-link:hover {
-            background: var(--light-blue);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: var(--neon-glow);
+        .tilted-card-figure:hover .tilted-card-img {
+            border-color: rgba(59, 130, 246, 0.8);
+            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.5);
         }
 
         .tilted-card-caption {
@@ -525,7 +403,6 @@
             z-index: 10;
             box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
             white-space: nowrap;
-            transition: opacity 0.2s ease;
         }
 
         /* Skills Section */
@@ -1333,12 +1210,7 @@
                 <div class="profile-card-container">
                     <figure class="tilted-card-figure" id="tiltedCard">
                         <div class="tilted-card-inner" id="tiltedInner">
-                            <div class="profile-card" id="pixelCardContainer">
-                                <canvas class="pixel-canvas" id="pixelCanvas"></canvas>
-                                <div class="profile-card-content">
-                                    <img src="gigi_picture.png" alt="Gigi Giorbelidze" class="profile-avatar">
-                                </div>
-                            </div>
+                            <img src="gigi_picture.png" alt="Gigi Giorbelidze" class="tilted-card-img">
                         </div>
                         <figcaption class="tilted-card-caption" id="tiltedCaption">
                             Hover to tilt
@@ -2225,13 +2097,102 @@
                 canvas.height = newRect.height;
             });
         };
-        // Initialize pixel card effect after page loads
-        window.addEventListener('load', () => {
-            setTimeout(initPixelCard, 500)
-        });
         
         // Initialize tilted card
         initTiltedCard();
+        
+        // Enhanced Tilted Card Effect
+        const initTiltedCard = () => {
+            const figure = document.getElementById('tiltedCard');
+            const inner = document.getElementById('tiltedInner');
+            const caption = document.getElementById('tiltedCaption');
+            
+            if (!figure || !inner || !caption) return;
+
+            const rotateAmplitude = 14;
+            const scaleOnHover = 1.1;
+            
+            let currentRotateX = 0;
+            let currentRotateY = 0;
+            let currentScale = 1;
+            let lastY = 0;
+            let captionRotate = 0;
+            
+            const lerp = (start, end, factor) => start + (end - start) * factor;
+            
+            function animate() {
+                const lerpFactor = 0.15;
+                
+                const rotateX = lerp(
+                    parseFloat(inner.style.getPropertyValue('--rotate-x') || 0),
+                    currentRotateX,
+                    lerpFactor
+                );
+                
+                const rotateY = lerp(
+                    parseFloat(inner.style.getPropertyValue('--rotate-y') || 0),
+                    currentRotateY,
+                    lerpFactor
+                );
+                
+                const scale = lerp(
+                    parseFloat(inner.style.getPropertyValue('--scale') || 1),
+                    currentScale,
+                    lerpFactor
+                );
+                
+                inner.style.setProperty('--rotate-x', rotateX);
+                inner.style.setProperty('--rotate-y', rotateY);
+                inner.style.setProperty('--scale', scale);
+                inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
+                
+                const captionRotateCurrent = lerp(
+                    parseFloat(caption.style.getPropertyValue('--caption-rotate') || 0),
+                    captionRotate,
+                    0.2
+                );
+                caption.style.setProperty('--caption-rotate', captionRotateCurrent);
+                caption.style.transform = `rotate(${captionRotateCurrent}deg)`;
+                
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+            
+            function handleMouse(e) {
+                const rect = figure.getBoundingClientRect();
+                const offsetX = e.clientX - rect.left - rect.width / 2;
+                const offsetY = e.clientY - rect.top - rect.height / 2;
+                
+                currentRotateX = (offsetY / (rect.height / 2)) * -rotateAmplitude;
+                currentRotateY = (offsetX / (rect.width / 2)) * rotateAmplitude;
+                
+                caption.style.left = (e.clientX - rect.left) + 'px';
+                caption.style.top = (e.clientY - rect.top) + 'px';
+                
+                const velocityY = offsetY - lastY;
+                captionRotate = -velocityY * 0.6;
+                lastY = offsetY;
+            }
+            
+            function handleMouseEnter() {
+                currentScale = scaleOnHover;
+                caption.style.opacity = '1';
+            }
+            
+            function handleMouseLeave() {
+                currentScale = 1;
+                currentRotateX = 0;
+                currentRotateY = 0;
+                captionRotate = 0;
+                caption.style.opacity = '0';
+            }
+            
+            figure.addEventListener('mousemove', handleMouse);
+            figure.addEventListener('mouseenter', handleMouseEnter);
+            figure.addEventListener('mouseleave', handleMouseLeave);
+        };
+        
         // Parallax Scroll Effect for Project Images
         const initParallaxImages = () => {
             const parallaxContainers = document.querySelectorAll('[data-parallax-container]');
